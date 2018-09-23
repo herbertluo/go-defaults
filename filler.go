@@ -38,7 +38,9 @@ func (f *Filler) getFields(variable interface{}) []*FieldData {
 
 func (f *Filler) GetFieldsFromValue(valueObject reflect.Value, parent *FieldData) []*FieldData {
 	typeObject := valueObject.Type()
-
+	if typeObject.Kind() != reflect.Struct {
+		return nil
+	}
 	count := valueObject.NumField()
 	var results []*FieldData
 	for i := 0; i < count; i++ {
